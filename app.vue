@@ -13,11 +13,34 @@
         width: 100%;
       "
       :options="{
-        style: 'mapbox://styles/mapbox/dark-v11',
+        style: 'mapbox://styles/mapbox/streets-v12',
         center: [-0.2623019, 5.5913738],
         zoom: 12,
       }"
-    />
-    <!-- <mapbox -->
+    >
+      <LazyMapboxDefaultMarker v-model:lnglat="lnglat" marker-id="marker1">
+        <LazyMapboxDefaultPopup
+          popup-id="popup1"
+          :lnglat="lnglat"
+          :options="{
+            closeOnClick: false,
+            color: '#fff',
+          }"
+          :paint="{
+            'marker-color': '#fff',
+          }"
+        >
+          <h2>Location Data Card</h2>
+        </LazyMapboxDefaultPopup>
+      </LazyMapboxDefaultMarker>
+    </MapboxMap>
   </div>
 </template>
+
+<script setup lang="ts">
+const lnglat = ref([-0.2623079, 5.5913738] as [number, number]);
+const paint = {
+  'circle-radius': 6,
+  'circle-color': '#B42222',
+};
+</script>
