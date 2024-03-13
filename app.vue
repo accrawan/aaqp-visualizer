@@ -43,4 +43,9 @@ const paint = {
   'circle-radius': 6,
   'circle-color': '#B42222',
 };
+const { $mqtt } = useNuxtApp();
+
+$mqtt.on('message', (topic, message, packet) => {
+  console.log(topic, message, packet);
+});
 </script>
