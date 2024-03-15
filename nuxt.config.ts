@@ -2,18 +2,33 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    'nuxt-mapbox'
+    'nuxt-mapbox',
+    'nuxt-socket-io'
   ],
   plugins: [
     {
       src: 'plugins/mqtt.ts',
-      mode: 'client'
+      mode: 'server'
+    },
+    {
+      src: 'plugins/websocket.server.ts',
+      mode: 'server'
     }
   ],
   mapbox: {
     accessToken: process.env.MAPBOX_ACCESS_TOKEN
   },
-  publicRuntimeConfig: {
-    MQTT_URI: `ws://${process.env.MQTT_SERVER_USERNAME}:${process.env.MQTT_SERVER_PASSWORD}@${process.env.MQTT_SERVER_PUBLIC_ADDRESS}`
+  io: {
+    sockets: [{
+      name: 'main',
+      url: process.env.SOCKET_URI
+    }]
+  },
+  runtimeConfig: {
+    public: {
+      mqtt: {
+        uri: `mqtt://${process.env.MQTT_SERVER_USERNAME}:${process.env.MQTT_SERVER_PASSWORD}@${process.env.MQTT_SERVER_PUBLIC_ADDRESS}`
+      }
+    }
   }
 })

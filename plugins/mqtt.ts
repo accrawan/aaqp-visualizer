@@ -1,9 +1,28 @@
-import * as mqtti from 'vue-mqttsocket'
-// const mqtt = require('vue-mqttsocket').default;
+import mqtt from 'mqtt'
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig()
-  const mqtt = mqtti.default;
-  nuxtApp.vueApp.use(mqtt, {
-    uri: config.public.MQTT_URI,
+  const mqttClient = mqtt.connect(config.public.mqtt.uri);
+
+  mqttClient.on('connect', () => {
+    console.log('Client Connected')
+    mqttClient.subscribe('#', err => {
+      if (!err)
+        console.log('Client Subscribed')
+    })
   })
-})
+
+  mqttClient.on('message', (topic, message, packet) => {
+    console.log(topic, message);
+    //   if (global.wss)
+    //     console.log('global.wss wai')
+    //   if (globalThis && globalThis.clients)
+    //     globalThis.clients.forEach((client, isBinary) => {
+    //       if (client.readyState === WebSocket.OPEN)
+    //         client.send(message.toString())
+    //     })
+    //   else console.log('no connected clients')
+    //   // console.log('topic, message, packet');
+    // });
+    // nuxtApp.vueApp.use(mqttClient);
+    nuxtApp.provide('mqtt', mqttClient)
+  })

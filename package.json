@@ -10,10 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "mqtt": "^5.4.0",
     "nuxt": "^3.10.3",
+    "nuxt-socket-io": "^3.0.13",
+    "uuid": "^9.0.1",
     "vue": "^3.4.21",
-    "vue-mqttsocket": "^0.2.0",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "ws": "^8.16.0"
   },
   "devDependencies": {
     "mapbox-gl": "^3.2.0",

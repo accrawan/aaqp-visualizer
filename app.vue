@@ -43,9 +43,33 @@ const paint = {
   'circle-radius': 6,
   'circle-color': '#B42222',
 };
-const { $mqtt } = useNuxtApp();
 
-$mqtt.on('message', (topic, message, packet) => {
-  console.log(topic, message, packet);
+import { v4 as uuid } from 'uuid';
+// import socket from './middleware/socket';
+const message = ref<string>('');
+
+// const { $socket } = useNuxtApp();
+// const uid = uuid();
+
+onMounted(() => {
+  console.log('mounted');
+  this.socket = this.$nuxtSocket({ channel: '/' });
+  // $socket.on
+  // console.log($socket);
+  // $socket.onopen = () => {
+  //   localStorage.setItem(`connection-${uid}`, uid);
+  //   console.log('socket open');
+  //   $socket.send(uid);
+  // };
+  // $socket.onmessage = ({ data }: any) => {
+  //   console.log('data', data);
+  //   message.value = data;
+  // };
+  // $socket.onclose = () => {
+  //   console.log('disconnected');
+  // };
+  // $socket.onerror = function (error) {
+  //   alert(`[error]`);
+  // };
 });
 </script>
